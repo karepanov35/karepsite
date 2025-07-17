@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruslan Karepanov | Contact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --white: #fff;
+            --gray: #1a1a1a;
+            --light-gray: #333;
+            --accent: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        a {
+            color: var(--white);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            opacity: 0.7;
+        }
+
+        /* Анимированный фон */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .line {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            animation: float 15s infinite linear;
+        }
+
+        .line:nth-child(1) {
+            width: 1px;
+            height: 150%;
+            top: -25%;
+            left: 15%;
+            animation-duration: 20s;
+        }
+
+        .line:nth-child(2) {
+            width: 1px;
+            height: 120%;
+            top: -10%;
+            left: 70%;
+            animation-duration: 25s;
+            animation-direction: reverse;
+        }
+
+        .line:nth-child(3) {
+            width: 150%;
+            height: 1px;
+            top: 40%;
+            left: -25%;
+            animation-duration: 18s;
+        }
+
+        .circle {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 50%;
+            animation: pulse 8s infinite ease-in-out;
+        }
+
+        .circle:nth-child(4) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            right: 15%;
+        }
+
+        .circle:nth-child(5) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 10%;
+            animation-delay: 2s;
+        }
+
+        .square {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            bottom: 15%;
+            right: 20%;
+            animation: rotate 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-50px) rotate(1deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Шапка */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        nav ul li a.active::after,
+        nav ul li a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--white);
+            transform: scaleX(1);
+            transition: transform 0.3s ease;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--white);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Гамбургер-меню */
+        .menu-toggle {
+            display: none;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: var(--white);
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span:nth-child(1) {
+            top: 5px;
+        }
+
+        .menu-toggle span:nth-child(2) {
+            top: 13px;
+        }
+
+        .menu-toggle span:nth-child(3) {
+            top: 21px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 13px;
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 13px;
+        }
+
+        /* Мобильное меню */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: right 0.3s ease;
+            z-index: 1000;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .mobile-menu ul li {
+            margin: 15px 0;
+        }
+
+        .mobile-menu ul li a {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 10px 20px;
+            display: block;
+        }
+
+        /* Секция контактов */
+        .contact-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+        }
+
+        .contact-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .contact-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-link:hover {
+            transform: scale(1.1);
+        }
+
+        .contact-link i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-link span {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Подвал */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 20px 5%;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .scroll-hint {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        .mouse {
+            width: 25px;
+            height: 40px;
+            border: 2px solid white;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .wheel {
+            width: 4px;
+            height: 8px;
+            background: white;
+            border-radius: 2px;
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            0% { top: 5px; opacity: 1; }
+            30% { opacity: 1; }
+            100% { top: 15px; opacity: 0; }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .sticky-header {
+                justify-content: flex-end;
+            }
+
+            .contact-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .contact-link i {
+                font-size: 2.5rem;
+            }
+
+            .contact-link span {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-section h1 {
+                font-size: 2rem;
+            }
+
+            .contact-links {
+                gap: 15px;
+            }
+
+            .contact-link i {
+                font-size: 2rem;
+            }
+
+            .contact-link span {
+                font-size: 0.9rem;
+            }
+
+            .mobile-menu ul li a {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Анимированный фон -->
+<div class="animated-bg">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="square"></div>
+</div>
+
+<header class="sticky-header">
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="#" class="active">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="mobile-menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="#" class="active">Contact</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="contact-section">
+    <h1>Contact Me</h1>
+    <div class="contact-links">
+        <a href="https://github.com/karepanov35" class="contact-link" target="_blank">
+            <i class="fa-brands fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        <a href="https://vk.com/zeetfack" class="contact-link" target="_blank">
+            <i class="fa-brands fa-vk"></i>
+            <span>ВКонтакте</span>
+        </a>
+        <a href="https://t.me/karepanov35" class="contact-link" target="_blank">
+            <i class="fa-brands fa-telegram"></i>
+            <span>Telegram</span>
+        </a>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-content">
+        <p>© 2023 Ruslan Karepanov. All rights reserved</p>
+        <div class="scroll-hint">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <p>Листайте вниз</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Анимированный фон
+        const bgElements = document.querySelectorAll('.animated-bg > *');
+        bgElements.forEach(el => {
+            const randomDelay = Math.random() * 2;
+            el.style.animationDelay = `${randomDelay}s`;
+        });
+
+        // Анимация элементов
+        const elements = document.querySelectorAll('.contact-section h1, .contact-links');
+        elements.forEach((element, index) => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            }, 300 + index * 100);
+        });
+
+        // Управление гамбургер-меню
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Закрытие меню при клике на ссылку
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+    });
+</script>
+</body>
+</html>
